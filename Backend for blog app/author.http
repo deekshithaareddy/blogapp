@@ -1,0 +1,65 @@
+### Register author
+POST http://localhost:5000/common-api/users
+Content-Type: application/json
+
+{
+  "firstName":"author2",
+  "email":"author2@mail.com",
+  "role":"AUTHOR",
+  "password":"author2",
+  "profileImageURL":"https://images.pexels.com/photos/414171/pexels-photo-414171.jpeg"
+}
+
+
+
+### Author login
+POST http://localhost:5000/common-api/login
+Content-Type: application/json
+
+{
+    "email":"author1@mail.com",
+    "password":"author1"
+}
+
+### create article
+POST http://localhost:5000/author-api/article
+Content-Type: application/json
+
+{
+    "author":"69b3c0296409701edc26b5ca",
+    "title":"article1",
+    "category":"blog1",
+    "content":"article1"
+}
+
+### update article
+PUT  http://localhost:5000/author-api/articles
+Content-Type: application/json
+
+{
+  "articleId":"69b3ddd23ea69b29d24551ec",
+  "title":"article111",
+  "category":"blog111" ,
+  "content":"article111"
+}
+
+### read own article
+GET http://localhost:5000/author-api/articles
+
+### Author logout
+GET http://localhost:5000/common-api/logout
+
+### delete/restore 
+PATCH http://localhost:5000/author-api/articles
+Content-Type: application/json
+
+{
+  "articleId":"69b3ddd23ea69b29d24551ec",
+  "isArticleActive":false
+}
+
+
+
+
+
+

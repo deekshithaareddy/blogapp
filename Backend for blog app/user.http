@@ -1,0 +1,44 @@
+### Register User
+POST http://localhost:5000/auth/users
+Content-Type: application/json
+
+{
+  "firstName":"Anurag",
+  "lastName":"Sharma",
+  "email":"anurag123@mail.com",
+  "role":"USER",
+  "password":"anuragsharma",
+  "profileImageURL":"https://images.pexels.com/photos/414171/pexels-photo-414171.jpeg"
+}
+
+
+### User login
+POST http://localhost:5000/common-api/login
+Content-Type: application/json
+
+{
+    "email":"anurag123@mail.com",
+    "password":"anuragsharma"
+}
+
+### User logout
+GET  http://localhost:5000/common-api/logout
+
+### add comment to an article
+PUT http://localhost:5000/user-api/articles
+Content-Type: application/json
+
+{
+  "articleId":"69b3ddd23ea69b29d24551ec",
+  "comment":"article useful"
+}
+
+### change password
+PUT http://localhost:5000/common-api/password
+Content-Type: application/json
+
+{
+  "currentPassword":"anurag",
+  "newPassword":"anuragsharma"
+}
+
