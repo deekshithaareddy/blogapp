@@ -6,7 +6,7 @@ import {config} from "dotenv"
 import { verifyToken } from '../middlewares/verifyToken.js'
 const {sign}=jwt
 export const commonApp=exp.Router()
-import { upload } from '../Config/multer.js'
+import { upload } from '../config/multer.js'
 import { uploadToCloudinary } from "../config/cloudinaryupload.js";
 import cloudinary from "../config/cloudinary.js";
 config()
