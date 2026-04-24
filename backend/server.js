@@ -7,7 +7,9 @@ import { adminApp } from "./APIs/AdminAPI.js";
 import { commonApp } from "./APIs/commonAPI.js";
 import cookieParser from "cookie-parser";
 import cors from 'cors'
-config();
+if (process.env.NODE_ENV !== 'production') {
+  config();
+}
 //create express app
 const app = exp();
 //enable cors
