@@ -14,7 +14,7 @@ if (process.env.NODE_ENV !== 'production') {
 const app = exp();
 //enable cors
 app.use(cors({
-  origin:['http://localhost:5173'],
+  origin:['blogapp-oubwfyfft-deekshareddy3508-7663s-projects.vercel.app'],
   credentials:true
 }))
 //add cookie parser middeleware
