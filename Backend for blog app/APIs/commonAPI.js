@@ -7,7 +7,7 @@ import { verifyToken } from '../middlewares/verifyToken.js'
 const {sign}=jwt
 export const commonApp=exp.Router()
 import { upload } from '../Config/multer.js'
-import { uploadToCloudinary } from "../config/cloudinaryUpload.js";
+import { uploadToCloudinary } from "../Config/cloudinaryupload.js";
 import cloudinary from "../config/cloudinary.js";
 config()
 // Route for register
