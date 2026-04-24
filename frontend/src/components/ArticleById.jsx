@@ -50,7 +50,7 @@ function ArticleByID() {
       setLoading(true);
 
       try {
-        const res = await axios.get(`http://localhost:5000/user-api/article/${id}`, { withCredentials: true });
+        const res = await axios.get(https://blogapp-s4r1.onrender.com/user-api/article/${id}`, { withCredentials: true });
         setArticle(res.data.payload);
       } catch (err) {
         setError(err.response?.data?.error);
@@ -113,7 +113,7 @@ function ArticleByID() {
     //add artcileId
     commentObj.articleId = article._id;
     console.log(commentObj);
-    let res = await axios.put("http://localhost:5000/user-api/articles", commentObj, { withCredentials: true });
+    let res = await axios.put("https://blogapp-s4r1.onrender.com/user-api/articles", commentObj, { withCredentials: true });
     if (res.status === 200) {
       
       setArticle(res.data.payload);
