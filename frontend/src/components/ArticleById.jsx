@@ -49,9 +49,13 @@ function ArticleByID() {
     const getArticle = async () => {
       setLoading(true);
 
-      try {
-        const res = await axios.get(https://blogapp-s4r1.onrender.com/user-api/article/${id}`, { withCredentials: true });
-        setArticle(res.data.payload);
+    try {
+  const res = await axios.get(
+    `https://blogapp-s4r1.onrender.com/user-api/article/${id}`,
+    { withCredentials: true }
+  );
+
+  setArticle(res.data.payload);
       } catch (err) {
         setError(err.response?.data?.error);
       } finally {
@@ -79,7 +83,7 @@ function ArticleByID() {
 
     try {
       const res = await axios.patch(
-        "http://localhost:5000/author-api/articles",
+         "https://blogapp-s4r1.onrender.com/author-api/articles",
         { articleId: article._id, isArticleActive: newStatus },
         { withCredentials: true },
       );
