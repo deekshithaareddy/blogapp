@@ -85,11 +85,11 @@ commonApp.post("/login",async(req,res)=>{
 // Route for logout
 commonApp.get("/logout",(req,res)=>{
     // delete token
-    res.clearCookie("Token",{
-        httpOnly:true,
-        sameSite:"lax",
-        secure:false
-    })
+    res.clearCookie("Token", {
+  httpOnly:true,
+  sameSite:"none",
+  secure:true
+})
     res.status(200).json({message:"logout success"})
 })
 
