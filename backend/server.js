@@ -14,9 +14,15 @@ if (process.env.NODE_ENV !== 'production') {
 const app = exp();
 //enable cors
 app.use(cors({
-  origin:['blogapp-oubwfyfft-deekshareddy3508-7663s-projects.vercel.app'],
-  credentials:true
-}))
+  origin: function(origin, callback) {
+    if (!origin || origin.includes("vercel.app") || origin.includes("localhost")) {
+      callback(null, true);
+    } else {
+      callback(null, true); // temporary allow all
+    }
+  },
+  credentials: true
+}));
 //add cookie parser middeleware
 app.use(cookieParser())
 //body parser middleware
