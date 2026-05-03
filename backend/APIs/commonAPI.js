@@ -69,11 +69,11 @@ commonApp.post("/login",async(req,res)=>{
     }
     // token
     const signedToken=sign({id:user._id,email:user.email,role:user.role},process.env.JWT_SECRET,{expiresIn:"1h"})
-       res.cookie("Token",signedToken,{
-        httpOnly:true,
-        sameSite:"lax",
-        secure:false
-        })
+       res.cookie("Token", signedToken, {
+            httpOnly: true,
+            sameSite: "none",
+            secure: true
+    })
 
     
     let userObj=user.toObject()
