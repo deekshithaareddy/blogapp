@@ -68,7 +68,7 @@ commonApp.post("/login",async(req,res)=>{
         return res.status(401).json({message:"Invalid password"})
     }
     // token
-    const signedToken=sign({id:user._id,email:user.email,role:user.role},process.env.SECRET_KEY,{expiresIn:"1h"})
+    const signedToken=sign({id:user._id,email:user.email,role:user.role},process.env.JWT_SECRET,{expiresIn:"1h"})
        res.cookie("Token",signedToken,{
         httpOnly:true,
         sameSite:"lax",
