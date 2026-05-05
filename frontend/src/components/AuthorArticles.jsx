@@ -83,7 +83,9 @@ function AuthorArticles() {
 
             <p className={articleTitle}>{article.title}</p>
 
-            <p className={articleExcerpt}>{article.content.slice(0, 60)}...</p>
+            <p className="text-sm text-[#6e6e73] mt-1 break-words line-clamp-3 overflow-hidden">
+              {articleObj.content}
+            </p> 
           </div>
 
           <button className={`${ghostBtn} mt-auto pt-4`} onClick={() => openArticle(article)}>
