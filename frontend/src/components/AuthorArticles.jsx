@@ -84,7 +84,7 @@ function AuthorArticles() {
             <p className={articleTitle}>{article.title}</p>
 
             <p className="text-sm text-[#6e6e73] mt-1 break-words line-clamp-3 overflow-hidden">
-              {articleObj.content}
+              {article.content}
             </p> 
           </div>
 
