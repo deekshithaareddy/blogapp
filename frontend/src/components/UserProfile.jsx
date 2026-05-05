@@ -122,8 +122,9 @@ function UserProfile() {
                   <div>
                     <p className={articleTitle}>{articleObj.title}</p>
 
-                    <p className="text-sm text-[#6e6e73] mt-1">{articleObj.content.slice(0, 80)}...</p>
-
+                    <p className="text-sm text-[#6e6e73] mt-1 break-words line-clamp-3 overflow-hidden">
+                      {articleObj.content}
+                    </p>
                     <p className={`${timestampClass} mt-2`}>{formatDateIST(articleObj.createdAt)}</p>
                   </div>
 
