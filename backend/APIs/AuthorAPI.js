@@ -8,7 +8,7 @@ export const authorApp=exp.Router()
 authorApp.post("/article",verifyToken("AUTHOR"),async(req,res)=>{
     // get articleObj from client
     const articleObj=req.body
-    let user=req.useer
+    let user=req.user
     // check author
     let author=await userModel.findById(articleObj.author)
     if(!author){
