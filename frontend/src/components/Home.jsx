@@ -1,5 +1,14 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import {
+  articleGrid,
+  articleCardClass,
+  articleTitle,
+  ghostBtn,
+  loadingClass,
+  errorClass,
+  timestampClass,
+} from "../styles/common.js";
 
 function Home() {
   const [articles, setArticles] = useState([]);
