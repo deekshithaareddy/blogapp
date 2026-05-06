@@ -13,7 +13,6 @@ function Header() {
   const isAuthenticated = useAuth((state) => state.isAuthenticated);
   const user = useAuth((state) => state.currentUser);
 
-  // decide profile route based on role
   const getProfilePath = () => {
     if (!user) return "/";
 
@@ -30,15 +29,14 @@ function Header() {
   return (
     <nav className={navbarClass}>
       <div className={navContainerClass}>
-
-        {/* LOGO */}
+        {/* Logo */}
         <NavLink to="/" className={navBrandClass}>
           MyBlog
         </NavLink>
 
+        {/* Links */}
         <ul className={navLinksClass}>
-
-          {/* HOME */}
+          {/* Home */}
           <li>
             <NavLink
               to="/"
@@ -51,7 +49,7 @@ function Header() {
             </NavLink>
           </li>
 
-          {/* NOT LOGGED IN */}
+          {/* Guest Links */}
           {!isAuthenticated && (
             <>
               <li>
@@ -78,32 +76,32 @@ function Header() {
             </>
           )}
 
-          {/* LOGGED IN */}
+          {/* Logged In */}
           {isAuthenticated && (
-          <li>
-          <NavLink
-            to="/articles"
-            className={({ isActive }) =>
-            isActive ? navLinkActiveClass : navLinkClass
-        }
-      >
-        Articles
-          </NavLink>
-        </li>
+            <>
+              <li>
+                <NavLink
+                  to="/articles"
+                  className={({ isActive }) =>
+                    isActive ? navLinkActiveClass : navLinkClass
+                  }
+                >
+                  Articles
+                </NavLink>
+              </li>
 
-          <li>
-            <NavLink
-            to={getProfilePath()}
-            className={({ isActive }) =>
-            isActive ? navLinkActiveClass : navLinkClass
-              }
-            >
-            Profile ({user?.firstName})
-              </NavLink>
+              <li>
+                <NavLink
+                  to={getProfilePath()}
+                  className={({ isActive }) =>
+                    isActive ? navLinkActiveClass : navLinkClass
+                  }
+                >
+                  Profile ({user?.firstName})
+                </NavLink>
               </li>
             </>
           )}
-
         </ul>
       </div>
     </nav>
