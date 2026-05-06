@@ -87,7 +87,7 @@ function Header() {
                   isActive ? navLinkActiveClass : navLinkClass
                 }
               >
-                Profile
+                Profile ({user?.firstName})
               </NavLink>
             </li>
           )}
