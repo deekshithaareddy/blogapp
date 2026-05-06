@@ -10,11 +10,11 @@ import {
   errorClass,
   timestampClass,
 } from "../styles/common.js";
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from "../stores/AuthStore";
 
 function Home() {
   const navigate = useNavigate();
-  const { currentUser } = useAuth();
+  const currentUser = useAuth((state) => state.currentUser);
   const [articles, setArticles] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
