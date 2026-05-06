@@ -35,7 +35,10 @@ function Home() {
       }
     };
 
-     // convert UTC → IST
+    getArticles();
+  }, []);
+
+  // convert UTC → IST
   const formatDateIST = (date) => {
     return new Date(date).toLocaleString("en-IN", {
       timeZone: "Asia/Kolkata",
@@ -43,9 +46,6 @@ function Home() {
       timeStyle: "short",
     });
   };
-
-    getArticles();
-  }, []);
 
   return (
       <div className="mt-4">
