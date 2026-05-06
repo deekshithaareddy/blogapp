@@ -97,7 +97,7 @@ function AdminProfile() {
             onClick={goToArticles}
             className="mt-5 bg-[#111827] text-white px-5 py-2 rounded-full text-sm hover:bg-black transition"
           >
-            Open Articles
+            Articles
           </button>
         </div>
 
@@ -105,10 +105,6 @@ function AdminProfile() {
         <div className="bg-white border border-[#e8e8ed] rounded-3xl p-6 shadow-sm">
           <p className="text-sm text-[#6e6e73] mb-2">Navigation</p>
           <h3 className="text-xl font-semibold text-[#1d1d1f]">Home</h3>
-          <p className="text-sm text-[#6e6e73] mt-2">
-            Return to homepage and public article feed.
-          </p>
-
           <button
             onClick={goHome}
             className="mt-5 bg-green-600 text-white px-5 py-2 rounded-full text-sm hover:bg-green-700 transition"
@@ -123,11 +119,6 @@ function AdminProfile() {
         <h4 className="text-lg font-semibold text-[#1d1d1f]">
           Admin Access
         </h4>
-
-        <p className="text-sm text-[#6e6e73] mt-2 leading-6">
-          You have full access to manage users, moderate content, and maintain
-          the platform.
-        </p>
       </div>
     </div>
   );
