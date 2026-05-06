@@ -82,6 +82,16 @@ function Header() {
           {isAuthenticated && (
             <li>
               <NavLink
+                 to="/articles"
+                  className={({ isActive }) =>
+              isActive ? navLinkActiveClass : navLinkClass
+            }
+          >
+              Articles
+            </NavLink>
+          </li>
+            <li>
+              <NavLink
                 to={getProfilePath()}
                 className={({ isActive }) =>
                   isActive ? navLinkActiveClass : navLinkClass
