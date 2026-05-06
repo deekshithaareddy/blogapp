@@ -1,5 +1,6 @@
 import { useParams, useLocation, useNavigate } from "react-router";
 import { useEffect, useState } from "react";
+import { toast } from "react-hot-toast";
 import axios from "axios";
 import {useAuth} from "../stores/AuthStore.js"
 import {
@@ -140,7 +141,7 @@ function ArticleByID() {
         <h1 className={`${articleMainTitle} uppercase`}>{article.title}</h1>
 
         <div className={articleAuthorRow}>
-          <div className={authorInfo}>✍️ {user?.role}</div>
+          <div className={authorInfo}>✍️ {article.author?.firstName || user?.firstName}</div>
 
           <div>{formatDate(article.createdAt)}</div>
         </div>
@@ -168,7 +169,10 @@ function ArticleByID() {
           <form onSubmit={handleSubmit(addComment)}>
             <input
               type="text"
-              {...register("comment")}
+              {...register("comment",{
+              required:"Comment required",
+              minLength:{value:2,message:"Comment is too short"}
+              })}
               className={inputClass}
               placeholder="Write your comment here..."
             />
