@@ -9,6 +9,7 @@ import AuthorArticles from "./components/AuthorArticles";
 import EditArticle from "./components/EditArticle";
 import WriteArticles from "./components/WriteArticles";
 import ArticleByID from "./components/ArticleById"
+import Articles from "./components/Articles";
 import { Toaster } from "react-hot-toast";
 
 function App() {
@@ -24,6 +25,10 @@ function App() {
         {
           path: "register",
           element: <Register />,
+        },
+        {
+          path: "articles",
+          element: <Articles />,
         },
         {
           path: "login",
