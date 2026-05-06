@@ -2,6 +2,7 @@ import { createBrowserRouter, RouterProvider } from "react-router";
 import Root from "./components/Root";
 import Home from "./components/Home";
 import Register from "./components/Register";
+import ProtectedRoute from "./components/ProtectedRoute";
 import Login from "./components/Login";
 import UserProfile from "./components/UserProfile";
 import AuthorProfile from "./components/AuthorProfile";
