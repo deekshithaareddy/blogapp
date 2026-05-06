@@ -41,6 +41,7 @@ function WriteArticles() {
       let res = await axios.post("https://blogapp-s4r1.onrender.com/author-api/article", articleObj, { withCredentials: true });
       //navigate to AuthorArticles
       if (res.status === 201) {
+        reset();
         toast.success("Article published successfully")
         navigate("../articles");
         // navigate("./author-profile/articles");
