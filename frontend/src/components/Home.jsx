@@ -60,6 +60,10 @@ function Home() {
   }
 
   return (
+   <div>
+            <p className="text-sm text-[#6e6e73]">Welcome back</p>
+            <h2 className="text-xl font-semibold text-[#1d1d1f]">{currentUser?.firstName}</h2>
+          </div>
       <div className="mt-4">
         <h3 className="text-lg font-semibold text-[#1d1d1f] mb-4">Latest Articles</h3>
 
