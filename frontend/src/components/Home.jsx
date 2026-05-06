@@ -39,7 +39,6 @@ function Home() {
   }, []);
 
   return (
-     {/* ARTICLES SECTION */}
       <div className="mt-4">
         <h3 className="text-lg font-semibold text-[#1d1d1f] mb-4">Latest Articles</h3>
 
