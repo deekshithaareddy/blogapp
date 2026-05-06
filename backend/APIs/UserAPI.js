@@ -4,11 +4,16 @@ import { articlemodel } from '../models/articleModel.js'
 export const userApp=exp.Router()
 
 // Read articles of all authors
-userApp.get("/articles",verifyToken("USER"),async(req,res)=>{
-    // read articles
-    const articlesList=await articlemodel.find({isArticleActive:true})
-    res.status(200).json({message:"Articles",payload:articlesList})
-})
+userApp.get("/articles", async (req, res) => {
+  const articlesList = await articlemodel.find({
+    isArticleActive: true
+  });
+
+  res.status(200).json({
+    message: "Articles",
+    payload: articlesList
+  });
+});
 
 // add comment to an article
 userApp.put("/articles",verifyToken("USER"),async(req,res)=>{
