@@ -19,12 +19,16 @@ function UserProfile() {
   const currentUser = useAuth((state) => state.currentUser);
   const navigate = useNavigate();
 
+  const [error, setError] = useState("");
+
   const onLogout = async () => {
-    await logout();
-
-    navigate("/login");
+    try {
+      await logout();
+      navigate("/login");
+    } catch (err) {
+      setError("Logout failed");
+    }
   };
-
 
   return (
     <div className="max-w-5xl mx-auto px-6 py-10">
