@@ -19,54 +19,12 @@ function UserProfile() {
   const currentUser = useAuth((state) => state.currentUser);
   const navigate = useNavigate();
 
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-  const [articles, setArticles] = useState([]);
-
-  useEffect(() => {
-    const getArticles = async () => {
-      setLoading(true);
-      try {
-        //read articles of all authors
-        let res=await axios.get("https://blogapp-s4r1.onrender.com/user-api/articles",{withCredentials:true})
-        //update articles state
-        if(res.status===200){
-          setArticles((await res).data.payload)
-        }
-      } catch (err) {
-        setError(err.response?.data?.error || "Something went wrong");
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    getArticles();
-  }, []);
-
-  // convert UTC → IST
-  const formatDateIST = (date) => {
-    return new Date(date).toLocaleString("en-IN", {
-      timeZone: "Asia/Kolkata",
-      dateStyle: "medium",
-      timeStyle: "short",
-    });
-  };
-
   const onLogout = async () => {
     await logout();
 
     navigate("/login");
   };
 
-  const navigateToArticleByID = (articleObj) => {
-    navigate(`/article/${articleObj._id}`, {
-      state: articleObj,
-    });
-  };
-
-  if (loading) {
-    return <p className={loadingClass}>Loading articles...</p>;
-  }
 
   return (
     <div className="max-w-5xl mx-auto px-6 py-10">
