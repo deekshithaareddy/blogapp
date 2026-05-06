@@ -23,7 +23,7 @@ function Register() {
   } = useForm();
   const [loading, setLoading] = useState(false);
   const [apiError, setApiError] = useState(null);
-  const [preview, setPriview] = useState(null);
+  const [preview, setPreview] = useState(null);
   const navigate = useNavigate();
 
   //When user registration submitted
