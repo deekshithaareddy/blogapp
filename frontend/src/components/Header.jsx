@@ -80,26 +80,28 @@ function Header() {
 
           {/* LOGGED IN */}
           {isAuthenticated && (
-            <li>
-              <NavLink
-                 to="/articles"
-                  className={({ isActive }) =>
-              isActive ? navLinkActiveClass : navLinkClass
-            }
-          >
-              Articles
-            </NavLink>
-          </li>
-            <li>
-              <NavLink
-                to={getProfilePath()}
-                className={({ isActive }) =>
-                  isActive ? navLinkActiveClass : navLinkClass
-                }
-              >
-                Profile ({user?.firstName})
+          <li>
+          <NavLink
+            to="/articles"
+            className={({ isActive }) =>
+            isActive ? navLinkActiveClass : navLinkClass
+        }
+      >
+        Articles
+          </NavLink>
+        </li>
+
+          <li>
+            <NavLink
+            to={getProfilePath()}
+            className={({ isActive }) =>
+            isActive ? navLinkActiveClass : navLinkClass
+              }
+            >
+            Profile ({user?.firstName})
               </NavLink>
-            </li>
+              </li>
+            </>
           )}
 
         </ul>
