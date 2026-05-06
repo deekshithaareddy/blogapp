@@ -47,6 +47,17 @@ function Home() {
     });
   };
 
+
+    const navigateToArticleByID = (articleObj) => {
+    navigate(`/article/${articleObj._id}`, {
+      state: articleObj,
+    });
+  };
+
+  if (loading) {
+    return <p className={loadingClass}>Loading articles...</p>;
+  }
+
   return (
       <div className="mt-4">
         <h3 className="text-lg font-semibold text-[#1d1d1f] mb-4">Latest Articles</h3>
