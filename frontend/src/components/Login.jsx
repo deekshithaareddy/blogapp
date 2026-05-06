@@ -50,7 +50,7 @@ function Login() {
         navigate("/admin-profile");
       }
     }
-  }, [isAuthenticated]);
+  }, [isAuthenticated, currentUser, navigate]);
 
   //deal with loading
   if (loading) {
