@@ -29,7 +29,7 @@ function Home() {
           { withCredentials: true }
         );
 
-        if (res.status === 200) {
+        if (res.status === 200||res.status===304) {
           setArticles(res.data.payload);
         }
       } catch (err) {
