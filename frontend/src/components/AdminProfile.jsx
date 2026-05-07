@@ -1,5 +1,5 @@
 import { useAuth } from "../stores/AuthStore";
-import { useNavigate } from "react-router";
+import { useNavigate, Outlet } from "react-router";
 import { useState } from "react";
 import { errorClass } from "../styles/common";
 
@@ -32,11 +32,11 @@ function AdminProfile() {
 
   return (
     <div className="max-w-6xl mx-auto px-6 py-10">
-      {/* ERROR */}
+
       {error && <p className={errorClass}>{error}</p>}
+
       {/* HEADER */}
       <div className="bg-white border border-[#e8e8ed] rounded-3xl p-6 shadow-sm flex flex-col md:flex-row md:items-center md:justify-between gap-5">
-        {/* LEFT */}
         <div className="flex items-center gap-4">
           {currentUser?.profileImageUrl ? (
             <img
@@ -58,7 +58,6 @@ function AdminProfile() {
           </div>
         </div>
 
-        {/* RIGHT */}
         <button
           onClick={onLogout}
           className="bg-[#ff3b30] text-white px-5 py-2 rounded-full text-sm hover:bg-[#d62c23] transition"
@@ -67,59 +66,34 @@ function AdminProfile() {
         </button>
       </div>
 
-      {/* DASHBOARD CARDS */}
+      {/* DASHBOARD */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
-        {/* USERS */}
-        <div className="bg-white border border-[#e8e8ed] rounded-3xl p-6 shadow-sm">
-          <p className="text-sm text-[#6e6e73] mb-2">Manage</p>
-          <h3 className="text-xl font-semibold text-[#1d1d1f]">Users</h3>
-          <p className="text-sm text-[#6e6e73] mt-2">
-            View registered users, roles, and accounts.
-          </p>
 
-          <button
-            onClick={goToUsers}
-            className="mt-5 bg-[#0066cc] text-white px-5 py-2 rounded-full text-sm hover:bg-[#0055aa] transition"
-          >
+        <div className="bg-white border border-[#e8e8ed] rounded-3xl p-6 shadow-sm">
+          <h3 className="text-xl font-semibold">Users</h3>
+          <button onClick={goToUsers} className="mt-5 bg-blue-600 text-white px-5 py-2 rounded-full">
             Open Users
           </button>
         </div>
 
-        {/* ARTICLES */}
         <div className="bg-white border border-[#e8e8ed] rounded-3xl p-6 shadow-sm">
-          <p className="text-sm text-[#6e6e73] mb-2">Moderation</p>
-          <h3 className="text-xl font-semibold text-[#1d1d1f]">Articles</h3>
-          <p className="text-sm text-[#6e6e73] mt-2">
-            Review articles, remove content, monitor activity.
-          </p>
-
-          <button
-            onClick={goToArticles}
-            className="mt-5 bg-[#111827] text-white px-5 py-2 rounded-full text-sm hover:bg-black transition"
-          >
+          <h3 className="text-xl font-semibold">Articles</h3>
+          <button onClick={goToArticles} className="mt-5 bg-black text-white px-5 py-2 rounded-full">
             Articles
           </button>
         </div>
 
-        {/* HOME */}
         <div className="bg-white border border-[#e8e8ed] rounded-3xl p-6 shadow-sm">
-          <p className="text-sm text-[#6e6e73] mb-2">Navigation</p>
-          <h3 className="text-xl font-semibold text-[#1d1d1f]">Home</h3>
-          <button
-            onClick={goHome}
-            className="mt-5 bg-green-600 text-white px-5 py-2 rounded-full text-sm hover:bg-green-700 transition"
-          >
+          <h3 className="text-xl font-semibold">Home</h3>
+          <button onClick={goHome} className="mt-5 bg-green-600 text-white px-5 py-2 rounded-full">
             Go Home
           </button>
         </div>
       </div>
-
-      {/* INFO */}
-      <div className="bg-[#f5f5f7] rounded-3xl p-6 mt-8">
-        <h4 className="text-lg font-semibold text-[#1d1d1f]">
-          Admin Access
-        </h4>
+      <div className="mt-8">
+        <Outlet />
       </div>
+
     </div>
   );
 }
