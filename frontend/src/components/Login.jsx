@@ -35,19 +35,19 @@ function Login() {
 
   useEffect(() => {
     //navigation logic
-    if (isAuthenticated === true) {
+    if (isAuthenticated && currentUser?.role) {
       if (currentUser.role === "USER") {
         //show cuccess toast
-        toast.success("Login success and redirecting to User Profile",{duration:2000})
-        navigate("/user-profile");
+        toast.success("User login success and redirecting to Home",{duration:2000})
+        navigate("/");
       }
       if (currentUser.role === "AUTHOR") {
-         toast.success("Login success and redirecting to Author Profile",{duration:2000})
-        navigate("/author-profile");
+         toast.success("Author login success and redirecting to Home",{duration:2000})
+        navigate("/");
       }
       if (currentUser.role === "ADMIN") {
-         toast.success("Login success and redirecting to Admin Profile",{duration:2000})
-        navigate("/admin-profile");
+         toast.success("Admin login success and redirecting to Home",{duration:2000})
+        navigate("/");
       }
     }
   }, [isAuthenticated, currentUser, navigate]);
