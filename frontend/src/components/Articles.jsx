@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
-import api from "../api/axios";
+import axios from "axios";
 
 import {
   articleGrid,
