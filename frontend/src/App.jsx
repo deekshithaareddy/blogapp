@@ -12,6 +12,8 @@ import WriteArticles from "./components/WriteArticles";
 import ArticleByID from "./components/ArticleById"
 import Articles from "./components/Articles";
 import { Toaster } from "react-hot-toast";
+import AdminUsers from "./components/AdminUsers";
+import AdminArticles from "./components/AdminArticles";
 
 function App() {
   const routerObj = createBrowserRouter([
@@ -37,7 +39,18 @@ function App() {
         },
         {
           path: "admin-profile",
-          element: <AdminProfile />
+          element: <AdminProfile />,
+
+          children:[
+            {
+              path: "users",
+              element: <AdminUsers/>
+            },
+            {
+              path: "articles",
+              element: <AdminArticles/>
+            },
+            ]
         },
         {
           path: "user-profile",
