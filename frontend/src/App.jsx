@@ -36,6 +36,10 @@ function App() {
           element: <Articles />,
         },
         {
+          path: "admin-profile",
+          element: <AdminProfile />
+        },
+        {
           path: "user-profile",
           element: <UserProfile />,
         },
@@ -56,10 +60,6 @@ function App() {
               path: "write-article",
               element: <WriteArticles />,
             },
-            {
-              path: "admin-profile",
-              element: <AdminProfile />
-            }
           ],
         },
         {
