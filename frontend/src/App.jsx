@@ -27,12 +27,12 @@ function App() {
           element: <Register />,
         },
         {
-          path: "articles",
-          element: <Articles />,
-        },
-        {
           path: "login",
           element: <Login />,
+        },
+        {
+          path: "articles",
+          element: <Articles />,
         },
         {
           path: "user-profile",
