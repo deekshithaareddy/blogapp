@@ -20,7 +20,9 @@ function EditArticle() {
   const navigate = useNavigate();
   const { id } = useParams();
 
-  const article = location.state;
+  if (!article) {
+  return <p>No article data found</p>;
+}
 
   const {
     register,
