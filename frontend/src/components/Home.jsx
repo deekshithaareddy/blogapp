@@ -33,7 +33,9 @@ function Home() {
           setArticles(res.data.payload);
         }
       } catch (err) {
-        setError(err.response?.data?.error || "Something went wrong");
+        // setError(err.response?.data?.error || "Something went wrong");
+  console.log("FULL ERROR:", err);
+  setError(err.message);
       } finally {
         setLoading(false);
       }
