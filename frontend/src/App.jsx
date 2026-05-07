@@ -55,6 +55,10 @@ function App() {
               path: "write-article",
               element: <WriteArticles />,
             },
+            {
+              path: "admin-profile",
+              element: <AdminProfile />
+            }
           ],
         },
         {
