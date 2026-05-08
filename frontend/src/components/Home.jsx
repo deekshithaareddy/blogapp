@@ -29,9 +29,9 @@ function Home() {
           { withCredentials: true }
         );
 
-        if (res.status === 200||res.status===304) {
-          setArticles(res.data.payload);
-        }
+       const latest = res.data.payload.sort(
+          (firstArticle, secondArticle) =>new Date(secondArticle.createdAt) - new Date(firstArticle.createdAt)).slice(0, 6);
+          setArticles(latest);
       } catch (err) {
         // setError(err.response?.data?.error || "Something went wrong");
   console.log("FULL ERROR:", err);
@@ -65,10 +65,19 @@ function Home() {
 
   return (
     <div className="mt-4">
-      <p className="text-xl font-bold mb-4 text-cyan-800 text-[#6e6e73]">Welcome back {currentUser?.firstName}</p>
-      {/* <h2 className="text-xl font-semibold text-[#1d1d1f]">{currentUser?.firstName}</h2> */}
-      <h3 className="text-lg font-semibold text-[#1d1d1f] mb-4">Latest Articles</h3>
+      <div className="bg-gradient-to-r from-cyan-600 to-blue-700 text-white rounded-2xl p-8 mb-6 shadow-lg text-center">
+        <h1 className="text-4xl font-bold mb-2">
+          Welcome {currentUser?.firstName}
+        </h1>
 
+        <p className="text-lg opacity-90">
+          Explore ideas, stories and insights...
+        </p>
+      </div>
+
+<h3 className="text-2xl font-bold text-[#1d1d1f] mb-4">
+  Latest Articles
+</h3>
       {/* ERROR STATE */}
       {error && (
         <p className={`${errorClass} mb-4`}>{error}</p>
