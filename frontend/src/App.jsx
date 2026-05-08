@@ -40,17 +40,14 @@ function App() {
         {
           path: "admin-profile",
           element: <AdminProfile />,
-
-          children:[
-            {
-              path: "users",
-              element: <AdminUsers/>
-            },
-            {
-              path: "articles",
-              element: <AdminArticles/>
-            },
-            ]
+        },
+        {
+          path: "admin-users",
+          element: <AdminUsers />,
+        },
+        {
+          path: "admin-articles",
+          element: <AdminArticles />,
         },
         {
           path: "user-profile",

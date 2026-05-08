@@ -24,10 +24,17 @@ function AuthorArticles() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  console.log("user in author profile", user);
+  useEffect(() => {
+    if (user) {
+      console.log("user in author profile", user);
+    }
+  }, [user]);
 
   useEffect(() => {
-    if (!user) return;
+    if (!user){
+      setLoading(false);
+      return;
+    }
 
     const getAuthorArticles = async () => {
       try {
@@ -35,7 +42,7 @@ function AuthorArticles() {
         //read articles of current author
         let res = await axios.get("https://blogapp-s4r1.onrender.com/author-api/articles", { withCredentials: true });
         if (res.status === 200) {
-          setArticles(res.data.payload);
+          setArticles(res.data.payload||[]);
         }
         //update articles state
       } catch (err) {
@@ -55,12 +62,12 @@ function AuthorArticles() {
     });
   };
 
-  const formatDate = (date) => {
-    return new Date(date).toLocaleString("en-IN", {
-      timeZone: "Asia/Kolkata",
-      dateStyle: "medium",
-    });
-  };
+  // const formatDate = (date) => {
+  //   return new Date(date).toLocaleString("en-IN", {
+  //     timeZone: "Asia/Kolkata",
+  //     dateStyle: "medium",
+  //   });
+  // };
 
   if (loading) return <p className={loadingClass}>Loading articles...</p>;
   if (error) return <p className={errorClass}>{error}</p>;

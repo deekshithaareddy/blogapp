@@ -1,6 +1,7 @@
 import exp from 'express'
 import {userModel} from '../models/UserModel.js';
 import { verifyToken } from '../middlewares/verifyToken.js';
+import { articlemodel } from '../models/articleModel.js';
 
 export const adminApp=exp.Router()
 
@@ -34,3 +35,14 @@ adminApp.put("/block",verifyToken("ADMIN"),async(req,res)=>{
     //send res
     res.status(200).json({message:"Status Updated!",payload:user});
 });
+
+// Read all articles
+adminApp.get("/articles",verifyToken("ADMIN"),async(req,res)=>{
+  try {
+    const articles = await articleModel.find();
+    res.status(200).json({ message: "Articles", payload: articles });
+}catch (err) {
+    res.status(500).json({ message: "Failed to fetch articles" });
+}
+}
+);

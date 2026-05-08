@@ -19,11 +19,11 @@ function AdminProfile() {
   };
 
   const goToUsers = () => {
-    navigate("/admin-profile/users");
+    navigate("/admin-users");
   };
 
   const goToArticles = () => {
-    navigate("/admin-profile/articles");
+    navigate("/admin-articles");
   };
 
   const goHome = () => {
@@ -51,7 +51,6 @@ function AdminProfile() {
           )}
 
           <div>
-            <p className="text-sm text-[#6e6e73]">Administrator Panel</p>
             <h2 className="text-2xl font-semibold text-[#1d1d1f]">
               {currentUser?.firstName}
             </h2>
@@ -72,26 +71,26 @@ function AdminProfile() {
         <div className="bg-white border border-[#e8e8ed] rounded-3xl p-6 shadow-sm">
           <h3 className="text-xl font-semibold">Users</h3>
           <button onClick={goToUsers} className="mt-5 bg-blue-600 text-white px-5 py-2 rounded-full">
-            Open Users
+            Manage Users
           </button>
         </div>
 
         <div className="bg-white border border-[#e8e8ed] rounded-3xl p-6 shadow-sm">
           <h3 className="text-xl font-semibold">Articles</h3>
           <button onClick={goToArticles} className="mt-5 bg-black text-white px-5 py-2 rounded-full">
-            Articles
+            Manage Articles
           </button>
         </div>
 
         <div className="bg-white border border-[#e8e8ed] rounded-3xl p-6 shadow-sm">
           <h3 className="text-xl font-semibold">Home</h3>
           <button onClick={goHome} className="mt-5 bg-green-600 text-white px-5 py-2 rounded-full">
-            Go Home
+            Home
           </button>
         </div>
       </div>
       <div className="mt-8">
-        <Outlet />
+        
       </div>
 
     </div>

@@ -25,9 +25,11 @@ function Articles() {
       try {
         setLoading(true);
 
-        const res = await api.get("/user-api/articles");
+        const res = await axios.get(
+          "https://blogapp-s4r1.onrender.com/user-api/articles"
+        );
 
-        if (res.status === 200) {
+        if (res.status === 200||res.status === 304) {
           setArticles(res.data.payload);
         }
       } catch (err) {

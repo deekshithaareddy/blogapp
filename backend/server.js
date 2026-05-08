@@ -36,7 +36,7 @@ app.use("/auth", commonApp);
 //connect to db
 const connectDB = async () => {
   try {
-    await connect(process.env.DB_URL);
+    await connect(process.env.MONGO_URI);
     console.log("DB server connected");
     //assign port
     const port = process.env.PORT || 5000;
