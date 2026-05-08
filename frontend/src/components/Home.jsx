@@ -30,7 +30,7 @@ function Home() {
         );
 
        const latest = res.data.payload.sort(
-          (firstArticle, secondArticle) =>new Date(secondArticle.createdAt) - new Date(firstArticle.createdAt)).slice(0, 6);
+          (firstArticle, secondArticle) =>new Date(secondArticle.createdAt) - new Date(firstArticle.createdAt)).slice(0, 3);
           setArticles(latest);
       } catch (err) {
         // setError(err.response?.data?.error || "Something went wrong");
