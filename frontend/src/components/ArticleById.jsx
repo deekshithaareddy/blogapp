@@ -153,19 +153,24 @@ function ArticleByID() {
       <div className={articleContent}>{article.content}</div>
 
       {/* AUTHOR actions */}
-      {user?.role === "AUTHOR" && 
-        article.author?.id===user?.id ||
-        article.author === user?.id) && (
-        <div className={articleActions}>
-          <button className={editBtn} onClick={() => editArticle(article)}>
-            Edit
-          </button>
+{user?.role === "AUTHOR" &&
+ (article.author?._id === user?.id || article.author === user?.id) && (
+  <div className={articleActions}>
+    <button
+      className={editBtn}
+      onClick={() => editArticle(article)}
+    >
+      Edit
+    </button>
 
-          <button className={deleteBtn} onClick={toggleArticleStatus}>
-            {article.isArticleActive ? "Delete" : "Restore"}
-          </button>
-        </div>
-      )}
+    <button
+      className={deleteBtn}
+      onClick={toggleArticleStatus}
+    >
+      {article.isArticleActive ? "Delete" : "Restore"}
+    </button>
+  </div>
+)}
       {/* form to add comment if role is USER */}
       {/* USER actions */}
       {user?.role === "USER" && (
