@@ -10,6 +10,9 @@ import cors from 'cors'
 if (process.env.NODE_ENV !== 'production') {
   config();
 }
+console.log(process.env.CLOUDINARY_CLOUD_NAME)
+console.log(process.env.CLOUDINARY_API_KEY)
+console.log(process.env.CLOUDINARY_API_SECRET ? "secret ok" : "missing")
 //create express app
 const app = exp();
 //enable cors
