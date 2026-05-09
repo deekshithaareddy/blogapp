@@ -127,13 +127,19 @@ function ArticleByID() {
 
  // console.log("article",article)
 
-console.log("Logged user:", user);
-console.log("Article data:", article);
-console.log("Article author:", article?.author);
   if (loading) return <p className={loadingClass}>Loading article...</p>;
   if (error) return <p className={errorClass}>{error}</p>;
   if (!article) return null;
 
+  const isAuthor =
+  user?.role === "AUTHOR" &&
+  article &&
+  (
+    article.author?._id?.toString() === user?._id?.toString() ||
+    article.author?.toString() === user?._id?.toString()
+  );
+
+  
   return (
     <div className={articlePageWrapper}>
       {/* Header */}
@@ -155,11 +161,7 @@ console.log("Article author:", article?.author);
       <div className={articleContent}>{article.content}</div>
 
     {/* AUTHOR actions */}
-{user?.role === "AUTHOR" &&
-(
-  (article.author?._id?.toString() === user?._id?.toString()) ||
-  (article.author?.toString() === user?._id?.toString())
-) && (
+{isAuthor && (
   <div className={articleActions}>
     <button
       className={editBtn}
