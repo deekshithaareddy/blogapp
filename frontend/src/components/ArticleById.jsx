@@ -154,7 +154,7 @@ function ArticleByID() {
 
       {/* AUTHOR actions */}
 {user?.role === "AUTHOR" &&
- (article.author?._id === user?.id || article.author === user?.id) && (
+ article.author?.toString() === user?._id?.toString() && (
   <div className={articleActions}>
     <button
       className={editBtn}
