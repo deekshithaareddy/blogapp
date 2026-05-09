@@ -142,7 +142,7 @@ function ArticleByID() {
 
         <div className={articleAuthorRow}>
           <div className={authorInfo}>
-              ✍️ {article.author?.firstName || "Unknown Author"}
+              ✍️ {article.authorName || article.author?.firstName || "Author"}
           </div>
 
           <div>{formatDate(article.createdAt)}</div>
@@ -154,7 +154,8 @@ function ArticleByID() {
 
       {/* AUTHOR actions */}
       {user?.role === "AUTHOR" && 
-        article.author?.id===user?.id && (
+        article.author?.id===user?.id ||
+        article.author === user?.id) && (
         <div className={articleActions}>
           <button className={editBtn} onClick={() => editArticle(article)}>
             Edit
