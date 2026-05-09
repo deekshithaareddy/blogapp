@@ -152,7 +152,7 @@ function ArticleByID() {
       {/* Content */}
       <div className={articleContent}>{article.content}</div>
 
-      {/* AUTHOR actions */}
+     {/* AUTHOR actions */}
 {user?.role === "AUTHOR" &&
  article.author?.toString() === user?._id?.toString() && (
   <div className={articleActions}>
