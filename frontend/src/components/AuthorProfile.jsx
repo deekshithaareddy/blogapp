@@ -60,7 +60,7 @@ function AuthorProfile() {
               : `${navLinkClass} px-5 py-2`
           }
         >
-          Articles
+          My articles
         </NavLink>
 
         <NavLink
