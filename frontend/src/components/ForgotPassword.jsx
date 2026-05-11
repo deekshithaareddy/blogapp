@@ -1,4 +1,7 @@
 import { useForm } from "react-hook-form";
+import { useState } from "react";
+import axios from "axios";
+import { toast } from "react-hot-toast";
 import {
   pageBackground,
   formCard,
@@ -14,14 +17,31 @@ import {
 import { NavLink } from "react-router";
 
 function ForgotPassword() {
+  const [loading, setLoading] = useState(false);
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => {
-    console.log(data);
+  const onSubmit = async (data) => {
+    try {
+      setLoading(true);
+
+      const res = await axios.post(
+        `${import.meta.env.VITE_API_URL}/common-api/forgot-password`,
+        data
+      );
+
+      toast.success(res.data.message || "Reset link sent");
+    } catch (err) {
+      toast.error(
+        err.response?.data?.message || "Something went wrong"
+      );
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -52,7 +72,7 @@ function ForgotPassword() {
           </div>
 
           <button type="submit" className={submitBtn}>
-            Send Reset Link
+            {loading ? "Sending..." : "Send Reset Link"}
           </button>
         </form>
 
