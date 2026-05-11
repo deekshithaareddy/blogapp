@@ -129,4 +129,28 @@ commonApp.put("/password",verifyToken("USER","AUTHOR","ADMIN"),async(req,res)=>{
 
 
 
+// forgot password
+commonApp.post("/forgot-password", async (req, res) => {
+  try {
+    const { email } = req.body;
+    const user = await userModel.findOne({ email });
+    if (!user) {
+      return res.status(404).json({
+        message: "Email not registered",
+      });
+    }
+
+    //reset link sent to mail
+    return res.status(200).json({
+      message: "Reset link sent successfully",
+    });
+  } catch (err) {
+    res.status(500).json({
+      message: "Something went wrong",
+    });
+  }
+});
+
+
+
 
