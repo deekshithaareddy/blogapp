@@ -14,6 +14,7 @@ import Articles from "./components/Articles";
 import { Toaster } from "react-hot-toast";
 import AdminUsers from "./components/AdminUsers";
 import AdminArticles from "./components/AdminArticles";
+import ForgotPassword from "./components/ForgotPassword";
 
 function App() {
   const routerObj = createBrowserRouter([
@@ -54,8 +55,8 @@ function App() {
           element: <UserProfile />,
         },
         {
-          path: "password",
-          element: <ForgotPassword/>
+          path: "forgot-password",
+          element: <ForgotPassword />,
         },
         {
           path: "author-profile",
