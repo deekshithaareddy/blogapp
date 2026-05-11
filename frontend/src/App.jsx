@@ -54,6 +54,10 @@ function App() {
           element: <UserProfile />,
         },
         {
+          path: "password",
+          element: <ForgotPassword/>
+        },
+        {
           path: "author-profile",
           element: <AuthorProfile />,
 
