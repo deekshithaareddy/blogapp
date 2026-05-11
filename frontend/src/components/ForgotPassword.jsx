@@ -30,7 +30,7 @@ function ForgotPassword() {
       setLoading(true);
 
       const res = await axios.post(
-        `${import.meta.env.VITE_API_URL}/common-api/forgot-password`,
+        `${import.meta.env.VITE_API_URL}/auth/forgot-password`,
         data
       );
 
