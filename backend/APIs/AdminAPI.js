@@ -46,3 +46,43 @@ adminApp.get("/articles",verifyToken("ADMIN"),async(req,res)=>{
 }
 }
 );
+
+
+// toggle article status
+adminApp.put("/articles/:id", verifyToken("ADMIN"), async(req,res)=>{
+  try{
+    const { isArticleActive } = req.body;
+
+    const article = await articlemodel.findByIdAndUpdate(
+      req.params.id,
+      { isArticleActive },
+      { new:true }
+    );
+
+    res.status(200).json({
+      message:"Article status updated",
+      payload:article
+    });
+
+  }catch(err){
+    res.status(500).json({
+      message:"Failed to update article"
+    });
+  }
+});
+
+// delete articles
+adminApp.delete("/articles/:id", verifyToken("ADMIN"), async(req,res)=>{
+  try{
+    await articlemodel.findByIdAndDelete(req.params.id);
+
+    res.status(200).json({
+      message:"Article deleted"
+    });
+
+  }catch(err){
+    res.status(500).json({
+      message:"Failed to delete article"
+    });
+  }
+});
