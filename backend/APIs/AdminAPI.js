@@ -39,7 +39,7 @@ adminApp.put("/block",verifyToken("ADMIN"),async(req,res)=>{
 // Read all articles
 adminApp.get("/articles",verifyToken("ADMIN"),async(req,res)=>{
   try {
-    const articles = await articleModel.find();
+    const articles = await articlemodel.find();
     res.status(200).json({ message: "Articles", payload: articles });
 }catch (err) {
     res.status(500).json({ message: "Failed to fetch articles" });
