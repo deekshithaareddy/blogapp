@@ -205,7 +205,7 @@ function ArticleByID() {
         {article.comments?.length === 0 && <p className="text-[#a1a1a6] text-sm text-center">No comments yet</p>}
 
         {article.comments?.map((commentObj, index) => {
-          const name = commentObj.user?.email || "User";
+          const name = commentObj.user?.username || commentObj.user?.firstName || "User";
           const firstLetter = name.charAt(0).toUpperCase();
 
           return (
