@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router";
 
 function AdminArticles() {
   // state to store all articles
@@ -7,6 +8,7 @@ function AdminArticles() {
 
   // state to store error message
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
   const fetchArticles = async () => {
     try {
       const res = await axios.get(
@@ -125,6 +127,16 @@ function AdminArticles() {
 
               {/* action buttons */}
               <div className="flex gap-3 mt-4">
+                <button
+                  onClick={() =>
+                    navigate(`/article/${article._id}`, {
+                    state: article,
+                  })
+                }
+              className="px-3 py-1 rounded bg-gray-700 text-white">
+                  View
+              </button>
+
                 {/* block/unblock button */}
                 <button
                   onClick={() => toggleStatus(article)}
