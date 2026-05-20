@@ -22,6 +22,10 @@ const articleSchema=new Schema({
         ref:"user",
         required:[true,"Author ID is required"]
     },
+    thumbnail: {
+      type: String,
+      default: "",
+    },
     title:{
         type:String,
         required:[true,"Title is required"]
