@@ -2,31 +2,49 @@ import exp from 'express'
 import { userModel } from '../models/UserModel.js'
 import { articlemodel } from '../models/articleModel.js'
 import { verifyToken } from '../middlewares/verifyToken.js'
+import { upload } from "../middlewares/upload.js";
 export const authorApp=exp.Router()
 
 // write article (protected route)
-authorApp.post("/article",verifyToken("AUTHOR"),async(req,res)=>{
-    // get articleObj from client
-    const articleObj=req.body
-    let user=req.user
-    // check author
-    let author=await userModel.findById(articleObj.author)
-    if(!author){
-    return res.status(404).json({message:"Author not found"})
+authorApp.post(
+  "/article",
+  verifyToken("AUTHOR"),
+  upload.single("thumbnail"),
+  async (req, res) => {
+    try {
+      // get article object
+      const articleObj = req.body;
+      // save uploaded thumbnail url
+      articleObj.thumbnail = req.file?.path || "";
+      let user = req.user;
+      // check author
+      let author = await userModel.findById(articleObj.author);
+      if (!author) {
+        return res.status(404).json({
+          message: "Author not found"
+        });
+      }
+      if (author.email != user.email) {
+        return res.status(403).json({
+          message: "You are not authorized"
+        });
+      }
+      // create article document
+      const articleDoc = new articlemodel(articleObj);
+      await articleDoc.save();
+      return res.status(201).json({
+        message: "Article published",
+        payload: articleDoc
+      });
+    } catch (err) {
+      return res.status(500).json({
+        message: "Server error",
+        error: err.message
+      });
     }
-    if(author.email!=user.email){
-        return res.status(403).json({message:"You are not authorized"})
-    }
-
-    // if(author.role!="AUTHOR"){
-    //     return res.status(403).json({message:"Only author can publish"})
-    // }
-
-    // create article Document
-    const articleDoc=new articlemodel(articleObj)
-    await articleDoc.save()
-    return res.status(201).json({message:"article published"})
-})  
+  }
+);
+  
 // read own articles
 authorApp.get("/articles",verifyToken("AUTHOR"),async(req,res)=>{
 //   get email from decoded token
