@@ -125,6 +125,36 @@ function ArticleByID() {
     }
   };
 
+  const handleLike = async () => {
+  try {
+    const res = await axios.put(
+      `https://blogapp-s4r1.onrender.com/user-api/like/${article._id}`,
+      {},
+      { withCredentials: true }
+    );
+    setArticle(res.data.payload);
+  } catch (err) {
+    toast.error(
+      err.response?.data?.message || "Could not like article"
+    );
+  }
+};
+
+const handleDislike = async () => {
+  try {
+    const res = await axios.put(
+      `https://blogapp-s4r1.onrender.com/user-api/dislike/${article._id}`,
+      {},
+      { withCredentials: true }
+    );
+    setArticle(res.data.payload);
+  } catch (err) {
+    toast.error(
+      err.response?.data?.message || "Could not dislike article"
+    );
+  }
+};
+
  // console.log("article",article)
 
   if (loading) return <p className={loadingClass}>Loading article...</p>;
@@ -139,26 +169,59 @@ function ArticleByID() {
     article.author?.toString() === user?._id?.toString()
   );
 
+const isLiked =
+  article.likes?.some(
+    likeUser => likeUser._id === user?._id
+  );
+
+const isDisliked =
+  article.dislikes?.some(
+    dislikeUser => dislikeUser._id === user?._id
+  );
+
   
   return (
     <div className={articlePageWrapper}>
       {/* Header */}
       <div className={articleHeader}>
         <span className={articleCategory}>{article.category}</span>
-
         <h1 className={`${articleMainTitle} uppercase`}>{article.title}</h1>
-
         <div className={articleAuthorRow}>
           <div className={authorInfo}>
               ✍️ {article.authorName || article.author?.firstName || "Author"}
           </div>
-
           <div>{formatDate(article.createdAt)}</div>
         </div>
       </div>
 
       {/* Content */}
       <div className={articleContent}>{article.content}</div>
+
+      <div className="flex gap-4 mt-6 items-center">
+
+  <button
+    onClick={handleLike}
+    className={`px-4 py-2 rounded-xl border transition
+      ${isLiked
+        ? "bg-green-600 text-white"
+        : "bg-white text-black"}
+    `}
+  >
+    ❤️ {article.likes?.length || 0}
+  </button>
+
+  <button
+    onClick={handleDislike}
+    className={`px-4 py-2 rounded-xl border transition
+      ${isDisliked
+        ? "bg-red-600 text-white"
+        : "bg-white text-black"}
+    `}
+  >
+    👎 {article.dislikes?.length || 0}
+  </button>
+
+</div>
 
     {/* AUTHOR actions */}
 {isAuthor && (
