@@ -212,7 +212,7 @@ const isDisliked =
 
   <button
     onClick={handleDislike}
-    className={`px-4 py-2 transition
+    className={`px-4 py-2 rounded-2xl transition
       ${isDisliked
         ? " bg-cyan-200 text-white"
         : "bg-white text-black"}
