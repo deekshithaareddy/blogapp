@@ -171,12 +171,12 @@ const handleDislike = async () => {
 
 const isLiked =
   article.likes?.some(
-    likeUser => likeUser._id === user?._id
+    likeUser => likeUser.toString() === user?._id?.toString()
   );
 
 const isDisliked =
   article.dislikes?.some(
-    dislikeUser => dislikeUser._id === user?._id
+    dislikeUser => dislikeUser.toString() === user?._id?.toString()
   );
 
   
@@ -192,55 +192,63 @@ const isDisliked =
           </div>
           <div>{formatDate(article.createdAt)}</div>
         </div>
-      </div>
+        
+        </div>
+          {article.thumbnail && (
+            <img
+            src={article.thumbnail}
+            alt="thumbnail"
+            className="w-full h-[400px] object-cover rounded-3xl mb-8"
+          />
+        )}
 
       {/* Content */}
       <div className={articleContent}>{article.content}</div>
 
       <div className="flex gap-4 mt-6 items-center">
 
-  <button
-    onClick={handleLike}
-    className={`px-4 py-2 rounded-2xl transition
-      ${isLiked
-        ? " bg-red-200 text-white"
-        : "bg-white text-black"}
-    `}
-  >
-    ❤️ {article.likes?.length || 0}
-  </button>
+          <button
+            onClick={handleLike}
+            className={`px-4 py-2 rounded-2xl transition
+              ${isLiked
+                ? " bg-red-200 text-white"
+                : "bg-white text-black"}
+            `}
+          >
+            ❤️ {article.likes?.length || 0}
+          </button>
 
-  <button
-    onClick={handleDislike}
-    className={`px-4 py-2 rounded-2xl transition
-      ${isDisliked
-        ? " bg-cyan-200 text-white"
-        : "bg-white text-black"}
-    `}
-  >
-    👎 {article.dislikes?.length || 0}
-  </button>
+          <button
+            onClick={handleDislike}
+            className={`px-4 py-2 rounded-2xl transition
+              ${isDisliked
+                ? " bg-cyan-200 text-white"
+                : "bg-white text-black"}
+            `}
+          >
+            👎 {article.dislikes?.length || 0}
+          </button>
 
-</div>
+        </div>
 
-    {/* AUTHOR actions */}
-{isAuthor && (
-  <div className={articleActions}>
-    <button
-      className={editBtn}
-      onClick={() => editArticle(article)}
-    >
-      Edit
-    </button>
+            {/* AUTHOR actions */}
+        {isAuthor && (
+          <div className={articleActions}>
+            <button
+              className={editBtn}
+              onClick={() => editArticle(article)}
+            >
+                    Edit
+            </button>
 
-    <button
-      className={deleteBtn}
-      onClick={toggleArticleStatus}
-    >
-      {article.isArticleActive ? "Delete" : "Restore"}
-    </button>
-  </div>
-)}
+            <button
+              className={deleteBtn}
+              onClick={toggleArticleStatus}
+            >
+              {article.isArticleActive ? "Delete" : "Restore"}
+            </button>
+          </div>
+        )}
       {/* form to add comment if role is USER */}
       {/* USER actions */}
       {user?.role === "USER" && (
