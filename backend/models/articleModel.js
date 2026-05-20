@@ -35,6 +35,18 @@ const articleSchema=new Schema({
         required:[true,"Content is required"]
     },
     comments:[commentSchema],
+    likes: [
+      {
+        type: Types.ObjectId,
+        ref: "user",
+      },
+    ],
+    dislikes: [
+      {
+        type: Types.ObjectId,
+        ref: "user",
+      },
+    ],
     isArticleActive:{
         type:Boolean,
         default:true
