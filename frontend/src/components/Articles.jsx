@@ -17,6 +17,8 @@ function Articles() {
   const navigate = useNavigate();
 
   const [articles, setArticles] = useState([]);
+  const [allArticles, setAllArticles] = useState([]);
+  const [searchText, setSearchText] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
@@ -31,6 +33,7 @@ function Articles() {
 
         if (res.status === 200||res.status === 304) {
           setArticles(res.data.payload);
+          setAllArticles(res.data.payload);
         }
       } catch (err) {
         setError(err.response?.data?.error || "Failed to fetch articles");
@@ -55,6 +58,23 @@ function Articles() {
       timeStyle: "short",
     });
   };
+  
+  const handleSearch = async (value) => {
+  setSearchText(value);
+  // if input empty show all articles
+  if (!value.trim()) {
+    setArticles(allArticles);
+    return;
+  }
+  try {
+    const res = await axios.get(
+      `https://blogapp-s4r1.onrender.com/user-api/search?keyword=${value}`
+    );
+    setArticles(res.data.payload);
+  } catch (err) {
+    console.log(err);
+  }
+};
 
   if (loading) {
     return <p className={loadingClass}>Loading articles...</p>;
@@ -67,7 +87,7 @@ function Articles() {
   if (articles.length === 0) {
     return (
       <p className="text-center text-[#6e6e73] py-10">
-        No articles available.
+        No matching articles found.
       </p>
     );
   }
@@ -77,6 +97,17 @@ function Articles() {
       <h2 className="text-2xl font-semibold text-[#1d1d1f] mb-6">
         All Articles
       </h2>
+
+      <div className="mb-6">
+        <input
+          type="text"
+          placeholder="Search articles..."
+          value={searchText}
+          onChange={(e) => handleSearch(e.target.value)}
+          className="w-full border border-gray-300 px-4 py-3 rounded-2xl outline-none"
+        />
+
+      </div>
 
       <div className={articleGrid}>
         {articles.map((articleObj) => (
