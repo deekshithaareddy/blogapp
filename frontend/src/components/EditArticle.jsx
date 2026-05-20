@@ -41,7 +41,7 @@ function EditArticle() {
      setValue("title", article.title);
      setValue("category", article.category);
      setValue("content", article.content);
-  }, [article]);
+  }, [article,setValue]);
 
   const updateArticle = async (modifiedArticle) => {
   try {
@@ -124,6 +124,34 @@ function EditArticle() {
 
           {errors.content && <p className={errorClass}>{errors.content.message}</p>}
         </div>
+        <div className={formGroup}>
+
+        <label className={labelClass}>
+          Update Thumbnail
+        </label>
+
+        <input
+          type="file"
+        accept="image/*"
+        className={inputClass}
+        onChange={(e) => setThumbnail(e.target.files[0])}
+      />
+        {article.thumbnail && !thumbnail && (
+          <img
+          src={article.thumbnail}
+          alt="thumbnail"
+          className="w-full h-64 object-cover rounded-2xl mt-4"
+        />
+      )}
+          {thumbnail && (
+            <img
+            src={URL.createObjectURL(thumbnail)}
+            alt="preview"
+            className="w-full h-64 object-cover rounded-2xl mt-4"
+          />
+        )}
+          
+    </div>
 
         <button className={submitBtn}>Update Article</button>
       </form>
