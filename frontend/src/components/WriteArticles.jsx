@@ -98,18 +98,28 @@ function WriteArticles() {
         <div className={formGroup}>
           <label className={labelClass}>Category</label>
 
-          <select
+          <input
+            type="text"
+            list="categories"
+            placeholder="Enter category"
             className={inputClass}
             {...register("category", {
               required: "Category is required",
             })}
-          >
-            <option value="">Select category</option>
-            <option value="technology">Technology</option>
-            <option value="programming">Programming</option>
-            <option value="ai">AI</option>
-            <option value="web-development">Web Development</option>
-          </select>
+          />
+
+          <datalist id="categories">
+            <option value="Technology" />
+            <option value="Programming" />
+            <option value="AI" />
+            <option value="Cyber Security" />
+            <option value="Food" />
+            <option value="Travel" />
+            <option value="Sports" />
+            <option value="Health" />
+            <option value="Finance" />
+            <option value="Lifestyle" />
+          </datalist>
 
           {errors.category && <p className={errorClass}>{errors.category.message}</p>}
         </div>
