@@ -2,7 +2,7 @@ import exp from 'express'
 import { userModel } from '../models/UserModel.js'
 import { articlemodel } from '../models/articleModel.js'
 import { verifyToken } from '../middlewares/verifyToken.js'
-import { upload } from "../middlewares/upload.js";
+import { upload } from '../config/multer.js'
 export const authorApp=exp.Router()
 
 // write article (protected route)
