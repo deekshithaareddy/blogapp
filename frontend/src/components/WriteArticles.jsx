@@ -19,6 +19,7 @@ import {useAuth} from "../stores/AuthStore"
 function WriteArticles() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+  const [thumbnail, setThumbnail] = useState(null);
   const currentUser = useAuth((state) => state.currentUser);
 
   const {
@@ -30,28 +31,43 @@ function WriteArticles() {
 
   //save article
   const submitArticle = async (articleObj) => {
+  try {
     setLoading(true);
-
-    //add authorId to articleObj
-    articleObj.author = currentUser._id;
-    try {
-      //set loading true
-      setLoading(true);
-      //make POST req to save new article
-      let res = await axios.post("https://blogapp-s4r1.onrender.com/author-api/article", articleObj, { withCredentials: true });
-      //navigate to AuthorArticles
-      if (res.status === 201) {
-        reset();
-        toast.success("Article published successfully")
-        navigate("../articles");
-        // navigate("./author-profile/articles");
-      }
-    } catch (err) {
-       toast.error(err.response?.data?.error || "Failed to publish article");
-    } finally {
-      setLoading(false);
+    // create formdata
+    const formData = new FormData();
+    formData.append("title", articleObj.title);
+    formData.append("category", articleObj.category);
+    formData.append("content", articleObj.content);
+    formData.append("author", currentUser._id);
+    // append thumbnail
+    if (thumbnail) {
+      formData.append("thumbnail", thumbnail);
     }
-  };
+    // api call
+    let res = await axios.post(
+      "https://blogapp-s4r1.onrender.com/author-api/article",
+      formData,
+      {
+        withCredentials: true,
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
+    if (res.status === 201) {
+      reset();
+      setThumbnail(null);
+      toast.success("Article published successfully");
+      navigate("../articles");
+    }
+  } catch (err) {
+    toast.error(
+      err.response?.data?.message || "Failed to publish article"
+    );
+  } finally {
+    setLoading(false);
+  }
+};
 
   return (
     <div className={formCard}>
@@ -116,6 +132,19 @@ function WriteArticles() {
           />
 
           {errors.content && <p className={errorClass}>{errors.content.message}</p>}
+        </div>
+        {/* Thumbnail */}
+        <div className={formGroup}>
+          <label className={labelClass}>
+            Upload Thumbnail
+          </label>
+          <input
+            type="file"
+            accept="image/*"
+            className={inputClass}
+            onChange={(e) => setThumbnail(e.target.files[0])}
+          />
+
         </div>
 
         {/* Submit */}
