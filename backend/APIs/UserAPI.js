@@ -66,6 +66,57 @@ userApp.put("/articles", verifyToken("USER"), async (req, res) => {
 })
 
 
+userApp.get("/search", async (req, res) => {
+  try {
+    const { keyword } = req.query;
+    if (!keyword?.trim()) {
+      return res.status(400).json({
+      message: "No search results",
+      });
+    }
+    const articles = await articlemodel
+      .find({
+        isArticleActive: true,
+        $or: [
+          {
+            title: {
+              $regex: keyword,
+              $options: "i",
+            },
+          },
+
+          {
+            category: {
+              $regex: keyword,
+              $options: "i",
+            },
+          },
+
+          {
+            content: {
+              $regex: keyword,
+              $options: "i",
+            },
+          },
+        ],
+      })
+      .populate("author", "firstName email _id");
+
+    res.status(200).json({
+      message: "Search results",
+      payload: articles,
+    });
+    
+  } catch (err) {
+    res.status(500).json({
+      message: "Server error",
+      error: err.message,
+    });
+
+  }
+});
+
+
 userApp.put(
   "/like/:articleId",
   verifyToken("USER"),
