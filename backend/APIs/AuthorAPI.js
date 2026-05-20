@@ -57,23 +57,66 @@ authorApp.get("/articles",verifyToken("AUTHOR"),async(req,res)=>{
 })
 
 // edit articles
-authorApp.put("/articles",verifyToken("AUTHOR"),async(req,res)=>{
-    // get author id from req
-    const authorIdOfToken=req.user?.id
-    // get article id from the req
-    const {articleId,title,category,content}=req.body
-    const updatedArticle=await articlemodel.findOneAndUpdate(
-        {_id:articleId,author:authorIdOfToken},
-        {$set:{title,category,content}},
-        {new:true}
-    )
-if(!updatedArticle){
-    return res.status(403).json({message:"You are not authorized to edit article"})
-}
-await updatedArticle.save()
-return res.status(200).json({message:"Article modified succesfully",payload:updatedArticle})
-    })
+authorApp.put(
+  "/articles",
+  verifyToken("AUTHOR"),
+  upload.single("thumbnail"),
+  async (req, res) => {
+    try {
+      // get author id
+      const authorIdOfToken = req.user?.id;
+      // get data from formdata
+      const {
+        articleId,
+        title,
+        category,
+        content
+      } = req.body;
+      // update object
+      let updateObj = {
+        title,
+        category,
+        content,
+      };
+      // if new thumbnail uploaded
+      if (req.file) {
+        updateObj.thumbnail = req.file.path;
+      }
+      // update article
+      const updatedArticle = await articlemodel.findOneAndUpdate(
+        {
+          _id: articleId,
+          author: authorIdOfToken
+        },
+        {
+          $set: updateObj
+        },
+        {
+          new: true
+        }
+      );
+      if (!updatedArticle) {
+        return res.status(403).json({
+          message: "You are not authorized to edit article"
+        });
+      }
+      return res.status(200).json({
+        message: "Article modified successfully",
+        payload: updatedArticle
+      });
+      
+    } catch (err) {
 
+      console.log(err);
+
+      return res.status(500).json({
+        message: "Server error",
+        error: err.message
+      });
+
+    }
+  }
+);
 //Delete article(soft delete)
 authorApp.patch("/articles", verifyToken("AUTHOR"), async (req, res) => {
   //get author id from decoded token
