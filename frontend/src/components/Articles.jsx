@@ -109,47 +109,84 @@ function Articles() {
 
       </div>
 
-      <div className={articleGrid}>
-        {articles.map((articleObj) => (
-          <div
-            key={articleObj._id}
-            className={`${articleCardClass} flex flex-col`}
-          >
-            {/* STATUS */}
-            <span
-              className={
-                articleObj.isArticleActive
-                  ? articleStatusActive
-                  : articleStatusDeleted
-              }
-            >
-              {articleObj.isArticleActive ? "ACTIVE" : "DELETED"}
-            </span>
+      <div className="space-y-6">
+  {articles.map((articleObj) => (
+    <div
+      key={articleObj._id}
+      onClick={() => openArticle(articleObj)}
+      className="
+        bg-white
+        rounded-3xl
+        shadow-sm
+        hover:shadow-xl
+        transition-all
+        duration-300
+        overflow-hidden
+        cursor-pointer
+        flex
+        flex-col
+        md:flex-row
+      "
+    >
 
-            {/* CONTENT */}
-            <div className="mt-3">
-              <p className={articleTitle}>{articleObj.title}</p>
+      {/* LEFT CONTENT */}
+      <div className="flex-1 p-6 flex flex-col justify-between">
 
-              <p className="text-sm text-[#6e6e73] mt-2 line-clamp-3 break-words">
-                {articleObj.content}
-              </p>
+        <div>
 
-              <p className="text-xs text-[#86868b] mt-3">
-                {formatDate(articleObj.createdAt)}
-              </p>
-            </div>
+          <span className="text-xs uppercase tracking-wide text-orange-500 font-semibold">
+            {articleObj.category}
+          </span>
 
-            {/* BUTTON */}
-            <button
-              onClick={() => openArticle(articleObj)}
-              className={`${ghostBtn} mt-auto pt-4`}
-            >
-              Read Article →
-            </button>
+          <h2 className="text-2xl font-bold text-gray-900 mt-2 line-clamp-2">
+            {articleObj.title}
+          </h2>
+
+          <p className="text-gray-600 mt-4 line-clamp-3">
+            {articleObj.content}
+          </p>
+
+        </div>
+
+        <div className="mt-6 flex items-center justify-between">
+
+          <div>
+            <p className="text-sm font-medium text-gray-800">
+              {articleObj.author?.firstName}
+            </p>
+
+            <p className="text-xs text-gray-500">
+              {formatDate(articleObj.createdAt)}
+            </p>
           </div>
-        ))}
+
+          <div className="flex gap-4 text-sm text-gray-500">
+            <span>❤️ {articleObj.likes?.length || 0}</span>
+            <span>💬 {articleObj.comments?.length || 0}</span>
+          </div>
+
+        </div>
+
       </div>
+
+      {/* THUMBNAIL */}
+      <div className="md:w-72 w-full h-56 md:h-auto">
+
+        <img
+          src={
+            articleObj.thumbnail ||
+            "https://via.placeholder.com/400x300"
+          }
+          alt="thumbnail"
+          className="w-full h-full object-cover"
+        />
+
+      </div>
+
     </div>
+  ))}
+</div>
+      </div>
   );
 }
 
