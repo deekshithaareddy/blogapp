@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import { useLocation, useNavigate, useParams } from "react-router";
-import { useEffect,useState } from "react";
+import { useEffect } from "react";
 import axios from "axios";
 
 
@@ -21,8 +21,7 @@ function EditArticle() {
   const { id } = useParams();
 
   const article = location.state;
-  const [thumbnail, setThumbnail] = useState(null);
-
+  
   if (!article) {
   return <p>No article data found</p>;
 }
@@ -43,32 +42,23 @@ function EditArticle() {
      setValue("content", article.content);
   }, [article,setValue]);
 
-  const updateArticle = async (modifiedArticle) => {
+const updateArticle = async (modifiedArticle) => {
+  modifiedArticle.articleId = article._id;
   try {
-    const formData = new FormData();
-    formData.append("title", modifiedArticle.title);
-    formData.append("category", modifiedArticle.category);
-    formData.append("content", modifiedArticle.content);
-    formData.append("articleId", article._id);
-    // append thumbnail if selected
-    if (thumbnail) {
-      formData.append("thumbnail", thumbnail);
-    }
     let res = await axios.put(
       "https://blogapp-s4r1.onrender.com/author-api/articles",
-      formData,
+      modifiedArticle,
       {
         withCredentials: true,
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
       }
     );
+
     if (res.status === 200) {
       navigate(`/article/${article._id}`, {
         state: res.data.payload,
       });
     }
+
   } catch (err) {
     console.log(err);
   }
@@ -115,44 +105,24 @@ function EditArticle() {
 
           {errors.category && <p className={errorClass}>{errors.category.message}</p>}
         </div>
-
         {/* Content */}
-        <div className={formGroup}>
-          <label className={labelClass}>Content</label>
+<div className={formGroup}>
+  <label className={labelClass}>Content</label>
 
-          <textarea rows="14" className={inputClass} {...register("content", { required: "Content required" })} />
+  <textarea
+    rows="14"
+    className={inputClass}
+    {...register("content", {
+      required: "Content required",
+    })}
+  />
 
-          {errors.content && <p className={errorClass}>{errors.content.message}</p>}
-        </div>
-        <div className={formGroup}>
-
-        <label className={labelClass}>
-          Update Thumbnail
-        </label>
-
-        <input
-          type="file"
-        accept="image/*"
-        className={inputClass}
-        onChange={(e) => setThumbnail(e.target.files[0])}
-      />
-        {article.thumbnail && !thumbnail && (
-          <img
-          src={article.thumbnail}
-          alt="thumbnail"
-          className="w-full h-64 object-cover rounded-2xl mt-4"
-        />
-      )}
-          {thumbnail && (
-            <img
-            src={URL.createObjectURL(thumbnail)}
-            alt="preview"
-            className="w-full h-64 object-cover rounded-2xl mt-4"
-          />
-        )}
-          
-    </div>
-
+  {errors.content && (
+    <p className={errorClass}>
+      {errors.content.message}
+    </p>
+  )}
+</div>
         <button className={submitBtn}>Update Article</button>
       </form>
     </div>
