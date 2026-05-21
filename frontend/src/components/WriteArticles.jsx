@@ -19,7 +19,6 @@ import {useAuth} from "../stores/AuthStore"
 function WriteArticles() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
-  const [thumbnail, setThumbnail] = useState(null);
   const currentUser = useAuth((state) => state.currentUser);
 
   const {
@@ -33,33 +32,23 @@ function WriteArticles() {
   const submitArticle = async (articleObj) => {
   try {
     setLoading(true);
-    // create formdata
-    const formData = new FormData();
-    formData.append("title", articleObj.title);
-    formData.append("category", articleObj.category);
-    formData.append("content", articleObj.content);
-    formData.append("author", currentUser._id);
-    // append thumbnail
-    if (thumbnail) {
-      formData.append("thumbnail", thumbnail);
-    }
-    // api call
+
+    articleObj.author = currentUser._id;
+
     let res = await axios.post(
       "https://blogapp-s4r1.onrender.com/author-api/article",
-      formData,
+      articleObj,
       {
         withCredentials: true,
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
       }
     );
+
     if (res.status === 201) {
       reset();
-      setThumbnail(null);
       toast.success("Article published successfully");
       navigate("../articles");
     }
+
   } catch (err) {
     toast.error(
       err.response?.data?.message || "Failed to publish article"
@@ -143,19 +132,7 @@ function WriteArticles() {
 
           {errors.content && <p className={errorClass}>{errors.content.message}</p>}
         </div>
-        {/* Thumbnail */}
-        <div className={formGroup}>
-          <label className={labelClass}>
-            Upload Thumbnail
-          </label>
-          <input
-            type="file"
-            accept="image/*"
-            className={inputClass}
-            onChange={(e) => setThumbnail(e.target.files[0])}
-          />
-
-        </div>
+      
 
         {/* Submit */}
         <button className={submitBtn} type="submit" disabled={loading}>
