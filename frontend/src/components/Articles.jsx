@@ -129,8 +129,8 @@ function Articles() {
       "
     >
 
-      {/* LEFT CONTENT */}
-      <div className="flex-1 p-6 flex flex-col justify-between">
+      {/* CONTENT */}
+      <div className="flex-1 p-6 flex flex-col justify-between bg-[#f5f7fb]">
 
         <div>
 
