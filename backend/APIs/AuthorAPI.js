@@ -60,51 +60,46 @@ authorApp.get("/articles",verifyToken("AUTHOR"),async(req,res)=>{
 authorApp.put(
   "/articles",
   verifyToken("AUTHOR"),
-  upload.single("thumbnail"),
   async (req, res) => {
     try {
-      // get author id
+
       const authorIdOfToken = req.user?.id;
-      // get data from formdata
+
       const {
         articleId,
         title,
         category,
         content
       } = req.body;
-      // update object
-      let updateObj = {
-        title,
-        category,
-        content,
-      };
-      // if new thumbnail uploaded
-      if (req.file) {
-        updateObj.thumbnail = req.file.path;
-      }
-      // update article
+
       const updatedArticle = await articlemodel.findOneAndUpdate(
         {
           _id: articleId,
           author: authorIdOfToken
         },
         {
-          $set: updateObj
+          $set: {
+            title,
+            category,
+            content
+          }
         },
         {
           new: true
         }
       );
+
       if (!updatedArticle) {
         return res.status(403).json({
           message: "You are not authorized to edit article"
         });
       }
+
       return res.status(200).json({
         message: "Article modified successfully",
         payload: updatedArticle
       });
-      
+
     } catch (err) {
 
       console.log(err);
