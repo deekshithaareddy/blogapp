@@ -93,7 +93,7 @@ function Articles() {
   }
 
   return (
-    <div className="mt-6">
+    <div className="mt-6 min-h-screen bg-[#f3f6fb] px-4 md:px-8 py-6">
       <h2 className="text-2xl font-semibold text-[#1d1d1f] mb-6">
         All Articles
       </h2>
@@ -104,7 +104,7 @@ function Articles() {
           placeholder="Search articles..."
           value={searchText}
           onChange={(e) => handleSearch(e.target.value)}
-          className="w-full border border-gray-300 px-4 py-3 rounded-2xl outline-none"
+          className="w-full border border-gray-200 bg-white px-5 py-3 rounded-2xl outline-none shadow-sm focus:ring-2 focus:ring-indigo-200"
         />
 
       </div>
@@ -129,7 +129,7 @@ hover:-translate-y-1
     >
 
       {/* CONTENT */}
-      <div className="p-7 bg-gradient-to-br from-[#f8fafc] to-[#eef2ff] rounded-3xl">
+      <div className="p-7 bg-gradient-to-br from-[#f8fafc] to-[#eef2ff]">
 
         <div>
 
