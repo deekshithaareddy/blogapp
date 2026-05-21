@@ -115,22 +115,21 @@ function Articles() {
       key={articleObj._id}
       onClick={() => openArticle(articleObj)}
       className="
-        bg-white
-        rounded-3xl
-        shadow-sm
-        hover:shadow-xl
-        transition-all
-        duration-300
-        overflow-hidden
-        cursor-pointer
-        flex
-        flex-col
-        md:flex-row
-      "
+  bg-white
+  rounded-3xl
+  shadow-md
+  hover:shadow-2xl
+  transition-all
+duration-300
+hover:-translate-y-1
+  cursor-pointer
+  border
+  border-gray-100
+"
     >
 
       {/* CONTENT */}
-      <div className="flex-1 p-6 flex flex-col justify-between bg-[#f5f7fb]">
+      <div className="p-7 bg-gradient-to-br from-[#f8fafc] to-[#eef2ff] rounded-3xl">
 
         <div>
 
@@ -138,11 +137,11 @@ function Articles() {
             {articleObj.category}
           </span>
 
-          <h2 className="text-2xl font-bold text-gray-900 mt-2 line-clamp-2">
+          <h2 className="text-3xl font-bold text-gray-900 mt-2 leading-tight line-clamp-2">
             {articleObj.title}
           </h2>
 
-          <p className="text-gray-600 mt-4 line-clamp-3">
+          <p className="text-gray-600 mt-4 leading-7 text-[15px] line-clamp-3">
             {articleObj.content}
           </p>
 
@@ -169,19 +168,6 @@ function Articles() {
 
       </div>
 
-      {/* THUMBNAIL */}
-      <div className="md:w-72 w-full h-56 md:h-auto">
-
-        <img
-          src={
-            articleObj.thumbnail ||
-            "https://via.placeholder.com/400x300"
-          }
-          alt="thumbnail"
-          className="w-full h-full object-cover"
-        />
-
-      </div>
 
     </div>
   ))}
